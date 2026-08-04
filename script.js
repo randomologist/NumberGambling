@@ -1,4 +1,4 @@
-let attacher = document.getElementById(attacher-btn);
+let attacher = document.getElementById(attach-btn);
 let att_text = attacher.innerText;
 let att_state = false
 attacher.addEventListener('click',function(){
