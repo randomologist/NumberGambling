@@ -6,7 +6,7 @@ bank_num.innerText = bank;
 let rent_num = document.getElementById("rent-amount");
 rent_num.innerText = rent_val;
 let market_num = document.getElementById("market-value");
-market_num.innerText = market_val;
+market_num.innerText = "$"+market_val;
 let attacher = document.getElementById("attach-btn");
 let att_state = false
 attacher.addEventListener('click',function(){
@@ -66,15 +66,20 @@ count_num.innerText = ` in ${countdown} days`;
 let time = document.getElementById("continue-btn");
 let day_num = document.getElementById("day-num");
 let days = 0;
+let change=document.getElementById("market-change");
 time.addEventListener('click',function(){
   let flux = Math.floor(Math.random()*(-20-21)+21);
   market_val +=flux;
-  market_num.innerText = market_val;
+  change.innerText = " [" + ((flux>0)?"+"+Math.abs(flux):flux) +"]";
+  market_num.innerText = "$"+market_val;
+  flux_color = (flux>0)?"green":"red";
+  market_num.style.color= flux_color;
+  change.style.color = flux_color;
   if(market_val < loan_val){
     loan_val = market_val;
     loan_box.value = market_val;
-    console.log(loan_box.value);
-    console.log("boxchanged?" + loan_val);
+    //console.log(loan_box.value);
+    //console.log("boxchanged?" + loan_val);
   }
   if(att_state ==true){
     bank+=flux;
