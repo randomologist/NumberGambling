@@ -18,15 +18,16 @@ attacher.addEventListener('click',function(){
     attacher.innerText = "Attach";
   }
 })
+let logged = false;
 let loaner = document.getElementById("loan-btn");
 let loan_box = document.getElementById("loan-input");
 let loan_state = false
 let loan_val = NaN
 loaner.addEventListener('click',function(){
-  console.log("init" + loan_val);
+  //console.log("init" + loan_val);
   if(loan_state == false){ //was not borrowing and now is
     loan_val = loan_box.valueAsNumber;
-    console.log("loanchange" + loan_val);
+    //console.log("loanchange" + loan_val);
     if(isNaN(loan_val)){
       alert("Fill in the amount you want to borrow");
     }
@@ -38,7 +39,7 @@ loaner.addEventListener('click',function(){
       alert("Borrowing amount cannot exceed market value")
       loan_box.select();
     }
-    else{
+    else{//loan went through
       loan_state = true;
       bank += loan_val;
       loan_box.disabled = true;
@@ -50,12 +51,16 @@ loaner.addEventListener('click',function(){
     if(bank < loan_val){
       alert("You cannot afford to pay back your loan")
     }
-    else{
-      console.log("loanval" + loan_val);
+    else{//payback went through
+      //console.log("loanval" + loan_val);
       loan_state = false;
       loan_box.disabled = false;
       bank -= loan_val;
       loaner.innerText="Borrow";
+      if(logged ==true){
+        console.log("Paid back $" + loan_val);
+        logged = false;
+      }
     }
   }
   bank_num.innerText=bank;
@@ -75,7 +80,11 @@ time.addEventListener('click',function(){
   flux_color = (flux>0)?"green":"red";
   market_num.style.color= flux_color;
   change.style.color = flux_color;
-  if(market_val < loan_val){
+  if(loan_state==true){
+    console.log("Borrowed $" + loan_val);
+    logged=true;
+  }
+  if(market_val < loan_val){ //payback ceiling
     loan_val = market_val;
     loan_box.value = market_val;
     //console.log(loan_box.value);
