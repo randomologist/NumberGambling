@@ -101,7 +101,7 @@ time.addEventListener('click',function(){
   else{count_num.innerText = ` in ${countdown} days`;}
   if(countdown<=0){//rent check
     if(bank - rent_val <0){
-      document.body.innerHTML = 
+      document.getElementById("current").innerHTML = 
         `<main>
           <div>Game Over</div>
           <div>You lasted ${days} days</div>
