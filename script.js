@@ -21,12 +21,14 @@ attacher.addEventListener('click',function(){
 let logged = false;
 let loaner = document.getElementById("loan-btn");
 let loan_box = document.getElementById("loan-input");
-let loan_state = false
-let loan_val = NaN
+let loan_state = false;
+let loan_val = NaN;
+let init_loan = NaN;
 loaner.addEventListener('click',function(){
   //console.log("init" + loan_val);
   if(loan_state == false){ //was not borrowing and now is
     loan_val = loan_box.valueAsNumber;
+    init_loan = loan_val;
     //console.log("loanchange" + loan_val);
     if(isNaN(loan_val)){
       alert("Fill in the amount you want to borrow");
@@ -80,16 +82,15 @@ time.addEventListener('click',function(){
   flux_color = (flux>0)?"green":"red";
   market_num.style.color= flux_color;
   change.style.color = flux_color;
-  if(loan_state==true){
+  if(loan_state==true && logged == false){
     console.log("Borrowed $" + loan_val);
     logged=true;
   }
-  if(market_val < loan_val){ //payback ceiling
-    loan_val = market_val;
-    loan_box.value = market_val;
+    //payback ceiling
+    loan_val = Math.min(market_val,init_loan);
+    loan_box.value = loan_val;
     //console.log(loan_box.value);
     //console.log("boxchanged?" + loan_val);
-  }
   if(att_state ==true){
     bank+=flux;
     bank_num.innerText=bank;
