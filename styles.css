@@ -1,6 +1,8 @@
 .contain{
     border:solid 0.5px;
     padding: 2px;
+    max-height: 120px;
+    overflow: auto;
 }
 .contain p{
 
