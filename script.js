@@ -13,6 +13,32 @@ function green(num){
 let marketVal = 500;
 let rentVal = 100;
 let bank = 300;
+let viz = document.getElementById("game-viz");
+const dayVals = [0];
+const marketVals = [500];
+let graph = new Chart(viz, {
+  type: "line",
+  data: {
+    labels: dayVals,
+    datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,0.1)",
+      data: marketVals
+    }]
+  },
+  options: {
+    plugins: {
+      legend: {display:false},
+      title: {
+        display: true,
+        text: "Market Tracker",
+        font: {size:16}
+      }
+    }
+  }
+});
 const bankNum = document.getElementById("bank-value");
 bankNum.innerText = bank;
 const rentNum = document.getElementById("rent-amount");
@@ -186,4 +212,9 @@ time.addEventListener('click',function(){
   else{
     dayLog.style.borderTop="1px dotted";
   }
+  
+	dayVals.push(days);
+  marketVals.push(marketVal);
+  console.log(marketVals);
+  graph.update();
 })
